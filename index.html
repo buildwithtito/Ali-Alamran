@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ali Amran | Video Producer & Sports Storyteller</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Bebas Neue for Heavy Impact Headlines, Plus Jakarta Sans & Inter for Body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandYellow: '#FFE500', // Iconic "BUY THAT CAMERA BRO" Yellow
+                        darkBg: '#08080A',
+                    },
+                    fontFamily: {
+                        impact: ['Bebas Neue', 'sans-serif'],
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #08080A;
+            color: #ffffff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* "BUY THAT CAMERA BRO" Vertical-Stacked Impact Font Style */
+        .yellow-impact-text {
+            font-family: 'Bebas Neue', sans-serif;
+            color: #FFE500;
+            line-height: 0.82;
+            letter-spacing: -0.01em;
+            text-transform: uppercase;
+            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Asymmetric Layout matching "BUY THAT CAMERA BRO" grid */
+        .poster-layout-grid {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            grid-template-rows: auto auto;
+            gap: 0px;
+            align-items: stretch;
+            line-height: 0.8;
+        }
+
+        .vertical-text-left {
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            font-size: 3.5rem;
+            letter-spacing: 0.05em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            grid-row: 1 / span 2;
+            padding-right: 0.25rem;
+        }
+
+        @media (min-width: 640px) {
+            .vertical-text-left {
+                font-size: 5rem;
+            }
+        }
+        @media (min-width: 1024px) {
+            .vertical-text-left {
+                font-size: 6.5rem;
+            }
+        }
+
+        /* Glowing White Text Effect ("EDIT WORKFLOW" Style) */
+        .glow-white-text {
+            font-family: 'Bebas Neue', sans-serif;
+            color: #FFFFFF;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.9), 0 0 30px rgba(255, 255, 255, 0.5);
+            letter-spacing: 0.05em;
+        }
+
+        /* Camera Flash Effect Screen Layer */
+        .flash-overlay {
+            position: fixed;
+            inset: 0;
+            background-color: #ffffff;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 50;
+            transition: opacity 0.08s ease-out;
+        }
+
+        .flash-overlay.active {
+            opacity: 1;
+        }
+
+        /* Hero Content Reveal Transitions */
+        .hero-reveal {
+            opacity: 0;
+            transform: translateY(30px) scale(0.98);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .hero-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* Dark Backdrop Fade after Flash */
+        .video-backdrop {
+            transition: background-color 0.8s ease;
+        }
+
+        .video-backdrop.darkened {
+            background-color: rgba(8, 8, 10, 0.85);
+        }
+
+        /* Cutout pop image glow */
+        .photo-cutout {
+            filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.9));
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .photo-cutout:hover {
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body class="relative min-h-screen text-slate-100 antialiased selection:bg-brandYellow selection:text-black">
+
+    <!-- CAMERA FLASH OVERLAY EFFECT -->
+    <div id="flashOverlay" class="flash-overlay"></div>
+
+    <!-- TOP NAVIGATION BAR -->
+    <header class="fixed top-0 left-0 right-0 z-40 px-6 md:px-12 py-6 flex justify-between items-center mix-blend-difference">
+        <a href="#" class="text-xl tracking-widest font-extrabold text-white uppercase font-impact">
+            ALI ALAMRAN <span class="text-brandYellow text-sm font-sans tracking-normal ml-2">📍 Seattle, WA</span>
+        </a>
+        <div class="flex items-center gap-6 text-xs font-mono tracking-widest uppercase text-slate-300">
+            <a href="https://instagram.com" target="_blank" class="hover:text-brandYellow transition-colors">Instagram</a>
+            <a href="https://youtube.com/@alifilms-l8x" target="_blank" class="hover:text-brandYellow transition-colors">YouTube</a>
+            <a href="https://tiktok.com" target="_blank" class="hover:text-brandYellow transition-colors">TikTok</a>
+        </div>
+    </header>
+
+    <!-- SECTION 1: HERO (FULLSCREEN DUNK SYNC VIDEO + FLASH REVEAL) -->
+    <section class="relative min-h-screen w-full flex items-center justify-center overflow-hidden border-b border-white/10">
+        
+        <!-- Background Video Layer -->
+        <div class="absolute inset-0 z-0">
+            <video id="dunkVideo" autoplay muted playsinline class="w-full h-full object-cover">
+                <source src="media/alivid1.mp4" type="video/mp4">
+            </video>
+            <!-- Dynamic Dark Overlay applied after Flash -->
+            <div id="videoBackdrop" class="video-backdrop absolute inset-0 bg-black/20"></div>
+        </div>
+
+        <!-- HERO CONTENT OVERLAY (Triggers after the Basketball Dunk Flash) -->
+        <div id="heroContent" class="hero-reveal relative z-20 w-full max-w-7xl mx-auto px-6 md:px-12 pt-24 pb-16 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            
+            <!-- Left Side: Walking Portrait Cutout Card -->
+            <div class="lg:col-span-5 flex flex-col items-center lg:items-start">
+                <div class="relative w-full max-w-md aspect-[3/4] overflow-hidden rounded-2xl border-2 border-white/20 shadow-2xl bg-black/40 backdrop-blur-sm group">
+                    <img src="media/aliamran.jpg" alt="Ali Amran - Video Producer" class="photo-cutout w-full h-full object-cover object-top">
+                </div>
+            </div>
+
+            <!-- Right Side: Clean Yellow Typography + Buttons -->
+            <div class="lg:col-span-7 flex flex-col justify-center gap-6 text-center lg:text-left">
+                
+                <!-- "BUY THAT CAMERA BRO" Asymmetric Layout Mapped to ALI VIDEO AMRAN PRODUCER -->
+                <div class="inline-block mx-auto lg:mx-0">
+                    <div class="yellow-impact-text text-7xl sm:text-8xl lg:text-9xl font-black">
+                        <!-- Top Row: BUY -> ALI -->
+                        <div class="w-full tracking-[0.5em] text-[180px] glow-white-text">
+                            ALI
+                        </div>
+                        
+                        <!-- Bottom Grid: Left Vertical (THAT -> VIDEO) + Right Stack (CAMERA -> AMRAN / BRO -> PRODUCER) -->
+                        <div class="poster-layout-grid">
+                            <div class="vertical-text-left">
+                                VIDEO
+                            </div>
+                            <div class="flex flex-col text-left">
+                                <div class="glow-white-text">ALAMRAN</div>
+                                <div>PRODUCER</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Call to Action Buttons -->
+                <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-4">
+                    <a href="#contact" class="px-8 py-4 text-sm font-extrabold uppercase tracking-widest text-black bg-brandYellow hover:bg-white transition-all shadow-lg hover:scale-105">
+                        Book an Edit
+                    </a>
+                    <a href="https://filmmakerali.gumroad.com/l/AliFilmsToolkitV1" target="_blank" class="px-8 py-4 text-sm font-extrabold uppercase tracking-widest text-white border-2 border-white/30 hover:border-brandYellow hover:text-brandYellow transition-all">
+                        Get the Toolkit
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+     <!-- SECTION 2: ABOUT / STORY (MINIMALIST SCROLL REVEAL) -->
+    <section id="about" class="relative z-10 max-w-4xl mx-auto px-6 md:px-12 py-32 border-b border-white/10">
+        
+        <div class="hero-reveal flex flex-col gap-8 text-center md:text-left">
+            <div>
+                <span class="text-xs font-mono uppercase tracking-widest text-brandYellow">About Ali</span>
+                <h2 class="text-4xl md:text-6xl font-black uppercase text-white mt-2">
+                    Athlete & Filmmaker
+                </h2>
+            </div>
+
+            <div class="flex flex-col gap-6 text-slate-300 text-lg md:text-xl font-light leading-relaxed">
+                <p>
+                    I’m a video producer based in Seattle, WA. Beyond the lens, I’m an active basketball player currently working my way toward competing on the national team level.
+                </p>
+                <p class="text-white font-medium pl-6 border-l-2 border-brandYellow italic">
+                    "Living the game gives me an intuitive edge on court—I don't just film sports events, I anticipate the adrenaline before it happens."
+                </p>
+                <p>
+                    My work is driven by raw sports energy, fast-paced storytelling, and retention-focused editing for athletes, events, and creators looking to make noise.
+                </p>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- SECTION 3: ENDLESS PORTFOLIO WALL (DUAL MARQUEE WITH FOCUS LIGHTBOX) -->
+    <section id="portfolio" class="py-32 relative z-10 border-b border-white/10 overflow-hidden">
+        
+        <div class="max-w-7xl mx-auto px-6 md:px-12 mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div>
+                <span class="text-xs font-mono uppercase tracking-widest text-brandYellow">Selected Works</span>
+                <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tight text-white mt-1">Featured Edits</h2>
+            </div>
+            <p class="text-xs text-slate-400 font-mono">
+                Click any reel to focus player
+            </p>
+        </div>
+
+        <!-- Marquee Row: Left Scroll -->
+        <div class="w-full overflow-hidden mb-8">
+            <div class="flex gap-6 animate-[scrollLeft_30s_linear_infinite] hover:[animation-play-state:paused] w-max">
+                <script>
+                    const renderPortfolioClips = () => {
+                        const items = [
+                            { title: 'National Circuit Dunk Highlight', src: 'media/alivid1.mp4' },
+                            { title: 'Game Day Energy Edit', src: 'media/alivid2.mp4' },
+                            { title: 'Courtside Slow-Mo FX', src: 'media/dunk-video.mp4' },
+                            { title: 'Full Speed Transition Cut', src: 'media/alivid1.mp4' },
+                        ];
+                        const triple = [...items, ...items, ...items];
+                        return triple.map((item) => `
+                            <div onclick="openLightbox('${item.src}', '${item.title}')" class="w-56 md:w-72 aspect-[9/16] relative border border-white/20 bg-black cursor-pointer group flex-shrink-0 overflow-hidden rounded-xl">
+                                <video autoplay loop muted playsinline class="w-full h-full object-cover">
+                                    <source src="${item.src}" type="video/mp4">
+                                </video>
+                                <div class="absolute inset-0 bg-black/40 group-hover:bg-transparent transition-colors"></div>
+                                <div class="absolute bottom-3 left-3 right-3 p-3 bg-black/90 border border-white/10 rounded-lg text-xs font-mono text-white flex justify-between items-center">
+                                    <span class="truncate">${item.title}</span>
+                                    <span class="text-brandYellow font-bold ml-2">▶</span>
+                                </div>
+                            </div>
+                        `).join('');
+                    };
+                    document.write(renderPortfolioClips());
+                </script>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- SECTION 4: EDIT WORKFLOW -->
+    <section id="workflow" class="max-w-7xl mx-auto px-6 md:px-12 py-32 border-b border-white/10">
+        
+        <div class="text-center md:text-left mb-16">
+            <span class="text-xs font-mono uppercase tracking-widest text-brandYellow">Behind The Process</span>
+            <!-- Glow White Style Text for EDIT WORKFLOW -->
+            <h2 class="glow-white-text text-6xl md:text-8xl mt-2">
+                EDIT WORKFLOW
+            </h2>
+        </div>
+
+        <!-- 5 Step Process Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+            
+            <div class="p-6 bg-white/5 border border-white/10 flex flex-col justify-between h-56 group hover:border-brandYellow transition-colors">
+                <span class="text-3xl font-impact text-brandYellow">01</span>
+                <div>
+                    <h3 class="text-lg font-bold text-white uppercase mb-1">Clip Selection</h3>
+                    <p class="text-xs text-slate-400 font-light leading-relaxed">Sorting peak athletic plays, crowd reactions, and high-energy impact frames.</p>
+                </div>
+            </div>
+
+            <div class="p-6 bg-white/5 border border-white/10 flex flex-col justify-between h-56 group hover:border-brandYellow transition-colors">
+                <span class="text-3xl font-impact text-brandYellow">02</span>
+                <div>
+                    <h3 class="text-lg font-bold text-white uppercase mb-1">Sound Selection</h3>
+                    <p class="text-xs text-slate-400 font-light leading-relaxed">Curating rhythmic music tracks that match the intensity of the sport.</p>
+                </div>
+            </div>
+
+            <div class="p-6 bg-white/5 border border-white/10 flex flex-col justify-between h-56 group hover:border-brandYellow transition-colors">
+                <span class="text-3xl font-impact text-brandYellow">03</span>
+                <div>
+                    <h3 class="text-lg font-bold text-white uppercase mb-1">Rough Cuts</h3>
+                    <p class="text-xs text-slate-400 font-light leading-relaxed">Pacing the edit to build momentum and lock in audience retention.</p>
+                </div>
+            </div>
+
+            <div class="p-6 bg-white/5 border border-white/10 flex flex-col justify-between h-56 group hover:border-brandYellow transition-colors">
+                <span class="text-3xl font-impact text-brandYellow">04</span>
+                <div>
+                    <h3 class="text-lg font-bold text-white uppercase mb-1">Color Grade</h3>
+                    <p class="text-xs text-slate-400 font-light leading-relaxed">Applying rich contrast, punchy highlights, and clean cinematic tones.</p>
+                </div>
+            </div>
+
+            <div class="p-6 bg-white/5 border border-white/10 flex flex-col justify-between h-56 group hover:border-brandYellow transition-colors">
+                <span class="text-3xl font-impact text-brandYellow">05</span>
+                <div>
+                    <h3 class="text-lg font-bold text-white uppercase mb-1">SFX & Polish</h3>
+                    <p class="text-xs text-slate-400 font-light leading-relaxed">Adding custom sound effects, rim impacts, sneaker squeaks, and bass drops.</p>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- SECTION 5: CONTACT FORM -->
+    <section id="contact" class="max-w-3xl mx-auto px-6 py-32 text-center">
+        <span class="text-xs font-mono uppercase tracking-widest text-brandYellow">Inquiries</span>
+        <h2 class="text-4xl md:text-6xl font-black uppercase text-white mt-2 mb-4">Book An Edit</h2>
+        <p class="text-slate-400 text-sm max-w-lg mx-auto mb-10 font-light">
+            Have a game, highlight tape, or brand campaign coming up? Send a message to start a project.
+        </p>
+
+        <form onsubmit="handleInquiry(event)" class="flex flex-col gap-4 text-left">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <input type="text" required placeholder="Your Name" class="w-full px-5 py-4 bg-white/5 border border-white/20 text-white rounded-none focus:outline-none focus:border-brandYellow text-sm">
+                <input type="email" required placeholder="Your Email" class="w-full px-5 py-4 bg-white/5 border border-white/20 text-white rounded-none focus:outline-none focus:border-brandYellow text-sm">
+            </div>
+            <textarea rows="4" required placeholder="Project details, timeline, or video links..." class="w-full px-5 py-4 bg-white/5 border border-white/20 text-white rounded-none focus:outline-none focus:border-brandYellow text-sm resize-none"></textarea>
+            <button type="submit" class="py-5 bg-brandYellow text-black font-extrabold uppercase tracking-widest text-xs hover:bg-white transition-colors">
+                Send Message
+            </button>
+            <div id="sentNotice" class="hidden text-brandYellow font-mono text-xs text-center pt-2">
+                ✓ Message received! Ali will get back to you shortly.
+            </div>
+        </form>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-8 border-t border-white/10 text-center text-xs text-slate-500 font-mono uppercase tracking-widest">
+        © 2026 Ali Amran | Seattle, WA. All Rights Reserved.
+    </footer>
+
+    <!-- FOCUS LIGHTBOX MODAL (SINGLE VIDEO FOCUS PLAYER) -->
+    <div id="videoLightbox" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300">
+        <button onclick="closeLightbox()" class="absolute top-6 right-6 text-white hover:text-brandYellow text-xs font-mono px-4 py-2 border border-white/20">
+            [ ✕ CLOSE ]
+        </button>
+
+        <div class="w-full max-w-sm aspect-[9/16] relative bg-black border border-white/30 rounded-2xl flex flex-col justify-between overflow-hidden shadow-2xl">
+            <video id="lightboxVideo" autoplay loop controls class="w-full h-full object-cover">
+                <source id="lightboxSource" src="" type="video/mp4">
+            </video>
+            <div id="lightboxTitle" class="absolute bottom-4 left-4 right-4 p-3 bg-black/90 border border-white/20 rounded-lg text-xs font-mono text-brandYellow">
+                Title Placeholder
+            </div>
+        </div>
+    </div>
+
+    <!-- DUNK SYNCHRONIZATION & FLASH ANIMATION CONTROLLER -->
+    <script>
+       document.addEventListener('DOMContentLoaded', () => {
+            const video = document.getElementById('dunkVideo');
+            const flash = document.getElementById('flashOverlay');
+            const backdrop = document.getElementById('videoBackdrop');
+            const heroContent = document.getElementById('heroContent');
+            let hasFlashed = false;
+
+            // Safe play helper function to prevent AbortError / unhandled promise rejections
+            function safePlay(videoEl) {
+                const playPromise = videoEl.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(error => {
+                        // Ignore abort errors caused by rapid play/pause or browser autoplay restrictions
+                        if (error.name !== 'AbortError') {
+                            console.warn('Video playback prevented:', error);
+                        }
+                    });
+                }
+            }
+
+            // Start playing hero dunk video safely
+            safePlay(video);
+
+            // Trigger Camera Flash & Reveal Hero at ~3.4 Seconds (Peak Dunk Moment)
+            video.addEventListener('timeupdate', () => {
+                if (video.currentTime >= 4.4 && !hasFlashed) {
+                    hasFlashed = true;
+                    
+                    // 1. Flash Screen White
+                    flash.classList.add('active');
+                    
+                    setTimeout(() => {
+                        // 2. Remove Flash & Darken Backdrop
+                        flash.classList.remove('active');
+                        backdrop.classList.add('darkened');
+                        
+                        // 3. Reveal Hero Content (Cutout Image, Yellow Quote, Name)
+                        heroContent.classList.add('revealed');
+                    }, 120);
+                }
+            });
+
+            // Loop fallback in case video restarts
+            video.addEventListener('ended', () => {
+                video.currentTime = 0;
+                safePlay(video);
+            });
+
+            // Scroll reveal observer for about section
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            document.querySelectorAll('#about .hero-reveal').forEach(el => observer.observe(el));
+        });
+
+        // Focus Lightbox Controller
+        function openLightbox(videoSrc, title) {
+            const modal = document.getElementById('videoLightbox');
+            const video = document.getElementById('lightboxVideo');
+            const source = document.getElementById('lightboxSource');
+            const titleEl = document.getElementById('lightboxTitle');
+
+            source.src = videoSrc;
+            video.load();
+            video.muted = false;
+            
+            const playPromise = video.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    if (error.name !== 'AbortError') {
+                        console.warn('Lightbox video playback interrupted:', error);
+                    }
+                });
+            }
+
+            titleEl.textContent = '▶ ' + title;
+
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            const modal = document.getElementById('videoLightbox');
+            const video = document.getElementById('lightboxVideo');
+
+            video.pause();
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            document.body.style.overflow = '';
+        }
+
+        function handleInquiry(e) {
+            e.preventDefault();
+            document.getElementById('sentNotice').classList.remove('hidden');
+            e.target.reset();
+        }
+    </script>
+</body>
+</html>
